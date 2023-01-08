@@ -1,0 +1,27 @@
+BRD  (business requirement documents)
+ERD  (Entity relationship diagram)
+Swagger (Documents + Test)
+Debug_Toolbar
+Logger (işlem geçmişimizi tutmaya yarayan bir tool)
+PostgreSQL (i projemize nasıl bağlarızı yaptık)
+dev-prod env (development(dev.py) ve production(prod.py) ortamlarını ayırdık ve her ikisi için ortakmolanla ayarları base .py kısmına koyduk.)
+# login / logout --- dj-rest-auth
+# register (serializer - view - urU)
+# generate token with signals and return token in registration
+# return user data in login
+
+PROJECT_PLAN
+- Flight
+- Reservation
+- Passenger
+# FLIGHT
+    - Client_users
+        - views upcoming fligts
+    - Staff members
+        - views all flight with reservations
+        - crud flights
+# RESERVATION
+    - Client_users
+        - crud reservation (their own reservations)
+    - Staff members
+        crud reservations (all reservartions)
