@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from rest_framework import viewsets
-from .serializers import FlightSerializer, ReservationSerializer
+from .serializers import FlightSerializer, ReservationSerializer, StaffFlightSerializer
 from .models import Flight, Reservation
 from rest_framework.permissions import IsAdminUser
 from .permissions import IsStafforReadOnly
@@ -9,7 +9,16 @@ from .permissions import IsStafforReadOnly
 class FlightView(viewsets.ModelViewSet):
     queryset = Flight.objects.all()
     serializer_class = FlightSerializer
-    permission_classes = (IsStafforReadOnly,)  #tuple olduğu belli olsun diye sonuna virgül koyduk 
+    permission_classes = (IsStafforReadOnly,) #tuple diye sonuna virgül koyduk
+    
+    def get_serializer_class(self):   #staff ise uçuşlarla birlikte resleri de görüyor
+        serializer = super().get_serializer_class()
+        
+        if self.request.user.is_staff:
+            return StaffFlightSerializer
+        
+        return serializer 
+
 
 class ReservationView(viewsets.ModelViewSet):
     queryset = Reservation.objects.all()

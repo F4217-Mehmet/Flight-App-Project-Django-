@@ -44,3 +44,20 @@ class ReservationSerializer(serializers.ModelSerializer):
         
         reservation.save()
         return reservation
+
+class StaffFlightSerializer(serializers.ModelSerializer):
+    
+    reservation = ReservationSerializer(many=True, read_only=True) #uçuşa ait birden fazla rez olabilir, staff uçuş create ederken rez create etmesin, sadece read etsinler
+    
+    class Meta:
+        model = Flight
+        fields = (
+            "id",
+            "flight_number",
+            "operation_airlines",
+            "departure_city",
+            "arrival_city",
+            "date_of_departure",
+            "etd",
+            "reservation",
+        )
