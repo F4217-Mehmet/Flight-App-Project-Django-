@@ -29,12 +29,12 @@ class FlightView(viewsets.ModelViewSet):
             return super().get_queryset()
         
         else:
-            queryset = Flight.objects.filter(date_of_departure__gt = today)
+            queryset = Flight.objects.filter(date_of_departure__gt=today) #gt = greater than
             
-            if Flight.objects.filter(date_of_departure = today):
-                today_qs =Flight.objects.filter(date_of_departure=today).filter(edt__gt = current_time)
+            if Flight.objects.filter(date_of_departure=today):
+                today_qs = Flight.objects.filter(date_of_departure=today).filter(edt__gt=current_time)
             
-                queryset = queryset.union(today_qs)
+                queryset = queryset.union(today_qs)  # iki queryseti birleştirdim
             return queryset
 
 
