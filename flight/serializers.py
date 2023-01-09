@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Flight
+from .models import Flight, Reservation
 
 
 class FlightSerializer(serializers.ModelSerializer):
@@ -15,3 +15,9 @@ class FlightSerializer(serializers.ModelSerializer):
             "date_of_departure",
             "etd"
         )
+
+class ReservationSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Reservation
+        fields = "__all__"
