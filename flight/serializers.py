@@ -22,10 +22,11 @@ class PassengerSerializer(serializers.ModelSerializer):
         fields = "__all__"     
 
 class ReservationSerializer(serializers.ModelSerializer):
-    passenger = PassengerSerializer(many=True)
+    passenger = PassengerSerializer(many=True, required=True)
     flight = serializers.StringRelatedField()
     flight_id = serializers.IntegerField()
+    user = serializers.StringRelatedField()
 
     class Meta:
         model = Reservation
-        fields = ("id", "flight", "flight_id", "passenger")
+        fields = ("id", "flight", "flight_id", "user", "passenger")
