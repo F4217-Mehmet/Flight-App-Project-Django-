@@ -23,6 +23,7 @@ class PassengerSerializer(serializers.ModelSerializer):
 
 class ReservationSerializer(serializers.ModelSerializer):
     passenger = PassengerSerializer(many=True)
+    flight = serializers.StringRelatedField()
 
     class Meta:
         model = Reservation
