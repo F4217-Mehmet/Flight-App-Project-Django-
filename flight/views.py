@@ -5,6 +5,7 @@ from .models import Flight, Reservation
 from rest_framework.permissions import IsAdminUser
 from .permissions import IsStafforReadOnly
 from datetime import datetime, date
+# from django.db.models import Q
 
 # Create your views here.
 class FlightView(viewsets.ModelViewSet):
@@ -32,6 +33,7 @@ class FlightView(viewsets.ModelViewSet):
                 today_qs = Flight.objects.filter(date_of_departure=today).filter(etd__gt=current_time)
                 queryset = queryset.union(today_qs)
             return queryset
+            # return Flight.objects.filter(Q(date_of_departure__gt=today) | Q(date_of_departure=today, etd_gt=current_time))
 
 
 class ReservationView(viewsets.ModelViewSet):

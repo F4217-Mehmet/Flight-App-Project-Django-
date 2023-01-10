@@ -50,6 +50,48 @@ class FlightTestCase(APITestCase):
         self.assertContains(response, 'reservation')
         self.assertEqual(len(response.data), 1)
 
+    def test_flight_create_as_non_auth_user(self):
+        request = self.factory.post('/flight/flights/')
+        response = FlightView.as_view({'post': 'create'})(request)
+        self.assertEqual(response.status_code, 401)
+
+
+    def test_flight_create_as_auth_user(self):
+        request = self.factory.post('/flight/flights/', HTTP_AUTHORIZATION= f'Token {self.token}')
+        response = FlightView.as_view({'post': 'create'})(request)
+        self.assertEqual(response.status_code, 403)
+
+    def test_flight_create_as_staff_user(self):
+        data = {
+            "flight_number":"TK3344",
+            "operation_airlines":"THY",
+            "departure_city":"Malatya",
+            "arrival_city":"Adana",
+            "date_of_departure":"2023-01-10",
+            "etd":"18:00:00",
+        }
+        self.user.is_staff=True
+        self.user.save()
+        request = self.factory.post('/flight/flights/', data, HTTP_AUTHORIZATION= f'Token {self.token}')
+        response = FlightView.as_view({'post': 'create'})(request)
+        self.assertEqual(response.status_code, 201)
+
+    # def test_flight_update_as_staff_user(self):
+    #     data = {
+    #         "flight_number":"TK3307",
+    #         "operation_airlines":"THY",
+    #         "departure_city":"Malatya",
+    #         "arrival_city":"Adana",
+    #         "date_of_departure":"2023-01-10",
+    #         "etd":"18:00:00",
+    #     }
+    #     self.user.is_staff=True
+    #     self.user.save()
+    #     request = self.factory.put('/flight/flights/1', data, HTTP_AUTHORIZATION= f'Token {self.token}')
+    #     response = FlightView.as_view({'put' : 'update'})(request, pk='1')
+    #     self.assertEqual(response.status_code, 200)
+    #     self.assertEqual(response.data['flight_number'], "TK3307")  #burada hata aldık..
+
 
 
 
