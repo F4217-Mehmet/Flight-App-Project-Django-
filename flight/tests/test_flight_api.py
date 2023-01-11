@@ -85,12 +85,12 @@ class FlightTestCase(APITestCase):
     #         "date_of_departure":"2023-01-10",
     #         "etd":"18:00:00",
     #     }
-    #     self.user.is_staff=True
+    #     self.user.is_staff=True 
     #     self.user.save()
     #     request = self.factory.put('/flight/flights/1', data, HTTP_AUTHORIZATION= f'Token {self.token}')
     #     response = FlightView.as_view({'put' : 'update'})(request, pk='1')
     #     self.assertEqual(response.status_code, 200)
-    #     self.assertEqual(response.data['flight_number'], "TK3307")  #burada hata aldık..
+    #     self.assertEqual(response.data['flight_number'], "TK3307")  #burada hata aldım..
 
 
 
